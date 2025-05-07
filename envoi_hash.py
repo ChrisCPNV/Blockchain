@@ -18,7 +18,8 @@ addresses = {
     "Joel Tebe Rovira": "0x75f81784678369d1C71B2EE3C0edAa6E0aFB48Ad",
     "Vikki Dolt": "0x6D5a9E3049fe419B4F063f0d8E54c640cA429d8a",
     "Jérémie Chevalley": "0xa63b4B935a3EaF6F0Ab83532a3843741746c5d5B",
-    "Chris Brandt": "0xE7929A82A9219cd4CCe88514364Fe30578D8e713"
+    "Chris Brandt": "0xE7929A82A9219cd4CCe88514364Fe30578D8e713",
+    "public": "0x0000000000000000000000000000000000000000"
 }
 
 from_address = "0xE7929A82A9219cd4CCe88514364Fe30578D8e713"
@@ -26,7 +27,41 @@ private_key = "0acf4c3f377ab35f9217761ed198f2525687ea6769482d85859f7c7a0f1fac32"
 
 amount_to_send = 0.1
 
-def send_eth(amount):
+def send_metadata():
+    w3 = Web3(Web3.HTTPProvider("http://10.229.43.182:8545"))
+
+    if not w3.is_connected():
+        print("Erreur de connexion à l'API RPC.")
+        return None
+    
+    nonce = w3.eth.get_transaction_count(from_address)
+
+    metadata = {
+        'name': 'pdf_file',
+        'hash': '91c7360e7383436ef5c69a65286a249b9af9dec30076837fe3c8de6cb5b87761',
+        'description': 'Hash du fichier pdf',
+        'path': r'C:\Users\pl52dsy\Documents\deuxieme\Trimestre4\I107\hashpdf_Chris.pdf'
+    }
+
+    metadata_hex = w3.to_hex(str(metadata).encode('utf-8'))
+
+    transaction = {
+        'from': from_address,
+        'to': "0x0000000000000000000000000000000000000000",
+        'value': 0,
+        'gas': 2000000,
+        'gasPrice': w3.to_wei('20', 'gwei'),
+        'nonce': nonce,
+        'chainId': 32383,
+        'data': metadata_hex
+    }
+
+    signed_txn = w3.eth.account.sign_transaction(transaction, private_key)
+    txn_hash = w3.eth.send_raw_transaction(signed_txn.raw_transaction)
+
+    print(f"Transaction envoyée à la blockchain avec le hash: {txn_hash.hex()}")
+
+def send_eth_all(amount):
     w3 = Web3(Web3.HTTPProvider("http://10.229.43.182:8545"))
 
     if not w3.is_connected():
@@ -74,15 +109,19 @@ def main():
     print("Envoi de l'ETH")
     print("Choisir une option:")
     print("1. Envoyer de l'ETH")
-    print("2. Afficher les adresses et les noms")
+    print("2. Afficher les soldes")
+    print("3. Envoie de metadatas à la blockchain")
     choice = input("Votre choix: ")
     
     if choice == '1':
-        send_eth(amount_to_send)
+        send_eth_all(amount_to_send)
     elif choice == '2':
         # Afficher les adresses et les noms ainsi que la balance
         for name, address in addresses.items():
             print(f"{name}: {address} - Solde: {get_balance(address)} ETH")
+    elif choice == '3':
+        send_metadata()
+        
     else:
         print("Choix invalide. Veuillez choisir 1 ou 2.")
 

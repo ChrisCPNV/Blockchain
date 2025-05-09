@@ -105,12 +105,42 @@ def get_balance(address):
     
     return ether_balance
 
+def get_metadata(adresse):
+    # Créer une instance de Web3
+    w3 = Web3(Web3.HTTPProvider("http://10.229.43.182:8545"))
+    
+    # Vérifier si la connexion est établie
+    if not w3.is_connected():
+        print("Erreur de connexion à l'API RPC.")
+        return None
+    
+    block_end = w3.eth.block_number
+
+    for block_number in range(0, block_end + 1):
+        try:
+            block = w3.eth.get_block(block_number, full_transactions=True)
+            for transaction_hash in block.transactions:
+                transaction = w3.eth.get_transaction(transaction_hash)
+                if transaction.to == adresse:
+                    print(f"Transaction trouvée dans le bloc {block_number}:")
+                    print(f"Hash de la transaction: {transaction_hash.hex()}")
+                    print(f"Données: {transaction.input}")
+                    print(f"Valeur: {w3.from_wei(transaction.value, 'ether')} ETH")
+                    print(f"Nonce: {transaction.nonce}")
+                    print(f"Gas Price: {w3.from_wei(transaction.gasPrice, 'gwei')} Gwei")
+                    print(f"Gas Limit: {transaction.gas}")
+                    print("---------------------------------------------------")
+
+        except Exception as e:
+            print(f"Erreur lors de la récupération des transactions du bloc {block_number}: {e}")
+
 def main():
     print("Envoi de l'ETH")
     print("Choisir une option:")
     print("1. Envoyer de l'ETH")
     print("2. Afficher les soldes")
     print("3. Envoie de metadatas à la blockchain")
+    print("4. Récupérer des meatadatas")
     choice = input("Votre choix: ")
     
     if choice == '1':
@@ -121,7 +151,10 @@ def main():
             print(f"{name}: {address} - Solde: {get_balance(address)} ETH")
     elif choice == '3':
         send_metadata()
-        
+    elif choice == '4':
+        # Demander à l'utilisateur de choisir une adresse
+        from_address = input("Entrez l'adresse pour récupérer les métadonnées: ")
+        get_metadata(from_address)
     else:
         print("Choix invalide. Veuillez choisir 1 ou 2.")
 

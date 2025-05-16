@@ -1,4 +1,5 @@
 from web3 import Web3
+import time
 
 addresses = {
     "Leticia Dépierraz": "0xb472211455322d3830f4aF4FF05A9ACb722B963d",
@@ -120,16 +121,18 @@ def get_metadata(adresse):
         try:
             block = w3.eth.get_block(block_number, full_transactions=True)
             for transaction_hash in block.transactions:
-                transaction = w3.eth.get_transaction(transaction_hash)
-                if transaction.to == adresse:
+                if transaction_hash.input and transaction_hash.input != '0x' and transaction_hash['from'] == adresse:
                     print(f"Transaction trouvée dans le bloc {block_number}:")
-                    print(f"Hash de la transaction: {transaction_hash.hex()}")
-                    print(f"Données: {transaction.input}")
-                    print(f"Valeur: {w3.from_wei(transaction.value, 'ether')} ETH")
-                    print(f"Nonce: {transaction.nonce}")
-                    print(f"Gas Price: {w3.from_wei(transaction.gasPrice, 'gwei')} Gwei")
-                    print(f"Gas Limit: {transaction.gas}")
+                    print(f"Hash de la transaction: {transaction_hash.hash.hex()}")
+                    print(f"Données: {transaction_hash.input}")
+                    print(f"Valeur: {w3.from_wei(transaction_hash.value, 'ether')} ETH")
+                    print(f"Nonce: {transaction_hash.nonce}")
                     print("---------------------------------------------------")
+
+            if block_number % 100 == 0:
+                print(f"--> Jusqu'au bloc {block_number}")
+                time.sleep(0.05)  # Pause pour éviter de surcharger le noeud
+
 
         except Exception as e:
             print(f"Erreur lors de la récupération des transactions du bloc {block_number}: {e}")

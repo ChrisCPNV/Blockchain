@@ -8,7 +8,7 @@ private_key = "0acf4c3f377ab35f9217761ed198f2525687ea6769482d85859f7c7a0f1fac32"
 w3 = Web3(Web3.HTTPProvider("http://10.229.43.182:8545"))  # Remplacez par l'URL de votre nœud
 assert w3.is_connected(), "Échec de la connexion au nœud Ethereum"
 
-URI =  "https://raw.githubusercontent.com/ChrisCPNV/Blockchain/refs/heads/main/nft.json"
+URI =  "https://raw.githubusercontent.com/ChrisCPNV/Blockchain/refs/heads/main/nft1.json"
 
 # Adresse et ABI du contrat déployé
 contract_address = "0x37724e8CD75EB3d49688Eeb492F8AF800ef6Adaa"

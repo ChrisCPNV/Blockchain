@@ -11,7 +11,7 @@ assert w3.is_connected(), "Échec de la connexion au nœud Ethereum"
 URI =  "https://raw.githubusercontent.com/ChrisCPNV/Blockchain/refs/heads/main/nft1.json"
 
 # Adresse et ABI du contrat déployé
-contract_address = "0x37724e8CD75EB3d49688Eeb492F8AF800ef6Adaa"
+contract_address = "0x551Ad65F2DDCB05F63CB23A9D28cBa61e7F93700"
 deployer_address = "0xE7929A82A9219cd4CCe88514364Fe30578D8e713"
 recipient_address = "0xE7929A82A9219cd4CCe88514364Fe30578D8e713"
 

@@ -21,7 +21,7 @@ contract ChrisCPNVNFT is ERC721URIStorage, Ownable {
 
 	constructor(address initialOwner) ERC721('Chris CPNV NFT', 'CNFT') Ownable(initialOwner) {
 
-		maxSupply = 2;
+		maxSupply = 5;
 
 	}
 

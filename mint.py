@@ -1,20 +1,19 @@
 from web3 import Web3
 import json
-import config
 
 # Adresse et clé privée de l'expéditeur
-private_key = "6564afasdfa798sdfas64dfas68fa6s1fas6dfa6s48dfa6s1dfas31fa6sdfas7fdasfs"
+private_key = "0acf4c3f377ab35f9217761ed198f2525687ea6769482d85859f7c7a0f1fac32"
 
 # Connexion au nœud Ethereum
 w3 = Web3(Web3.HTTPProvider("http://10.229.43.182:8545"))  # Remplacez par l'URL de votre nœud
 assert w3.is_connected(), "Échec de la connexion au nœud Ethereum"
 
-URI =  "https://www.cpnv.me/9c21b7718f9214bce2053b41a48584627cbfabe445d5863d6f322c3b8359fff5/metadata.json"
+URI =  "https://raw.githubusercontent.com/ChrisCPNV/Blockchain/refs/heads/main/nft.json"
 
 # Adresse et ABI du contrat déployé
 contract_address = "0x28eE64601A58EDC21BC2Da9e33448c2822371dED"
-deployer_address = "0x13cacedfb1b86e047cb21a5fa1c6d53417c3d69d"
-recipient_address = "0x13cacedfb1b86e047cb21a5fa1c6d53417c3d69d"
+deployer_address = "0xE7929A82A9219cd4CCe88514364Fe30578D8e713"
+recipient_address = "0xE7929A82A9219cd4CCe88514364Fe30578D8e713"
 
 sender_address = w3.to_checksum_address(deployer_address)
 
@@ -42,7 +41,7 @@ signed_mint_txn = w3.eth.account.sign_transaction(mint_txn, private_key)
 try:
     # Fait un test avant pour savoir si tout est en ordre, si c'est bon ça passe sinon 
     # ça leve l'exception
-    mint_check = nft_contract.functions.mint(metadata_json).call({
+    mint_check = nft_contract.functions.mint(URI).call({
         "from": sender_address,
         "value": w3.to_wei(valueEth, "ether")  # Prix du mint défini dans le contrat
     })

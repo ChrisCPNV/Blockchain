@@ -143,7 +143,7 @@ def main():
     print("1. Envoyer de l'ETH")
     print("2. Afficher les soldes")
     print("3. Envoie de metadatas à la blockchain")
-    print("4. Récupérer des meatadatas")
+    print("4. Récupérer des metadatas")
     choice = input("Votre choix: ")
     
     if choice == '1':

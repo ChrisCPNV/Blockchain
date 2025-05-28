@@ -5,4 +5,8 @@
 /node_modules
 /package-lock.json
 /package.json
-/bin
+/adresseContrat.txt
+/ChrisCPNVNFT.abi
+/ChrisCPNVNFT.bin
+/ChrisCPNVNFT.json
+/BrandtChrisNFT-solc-output.json

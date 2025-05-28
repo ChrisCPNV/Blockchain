@@ -14,7 +14,7 @@ contract ChrisCPNVNFT is ERC721URIStorage, Ownable {
 
 	uint256 public maxSupply;
 
-	bool public isMintEnabled;
+	bool public isMintEnabled = true;
 
 	mapping(address => uint256) public mintedWallets;
 

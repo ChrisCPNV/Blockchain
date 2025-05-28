@@ -11,7 +11,7 @@ assert w3.is_connected(), "Échec de la connexion au nœud Ethereum"
 URI =  "https://raw.githubusercontent.com/ChrisCPNV/Blockchain/refs/heads/main/nft.json"
 
 # Adresse et ABI du contrat déployé
-contract_address = "0x28eE64601A58EDC21BC2Da9e33448c2822371dED"
+contract_address = "0x37724e8CD75EB3d49688Eeb492F8AF800ef6Adaa"
 deployer_address = "0xE7929A82A9219cd4CCe88514364Fe30578D8e713"
 recipient_address = "0xE7929A82A9219cd4CCe88514364Fe30578D8e713"
 
@@ -19,7 +19,7 @@ sender_address = w3.to_checksum_address(deployer_address)
 
 
 # Charger l'ABI du contrat
-with open("SimpleMintContract.abi", "r") as abi_file:
+with open("ChrisCPNVNFT.abi", "r") as abi_file:
     contract_abi = json.load(abi_file)
 
 # Charger le contrat

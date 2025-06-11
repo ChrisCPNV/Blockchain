@@ -42,7 +42,7 @@ contract ChrisCPNVNFT is ERC721URIStorage, Ownable {
 
 		require(isMintEnabled, 'minting not enabled');
 
-		require(mintedWallets[msg.sender] < 1, 'exceeds max per wallet');
+		require(mintedWallets[msg.sender] < 5, 'exceeds max per wallet');
 
 		require(msg.value == mintPrice, 'wrong value');
 
